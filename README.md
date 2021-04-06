@@ -17,7 +17,9 @@
 There is a docker image available in the docker registry, in  the command line
 type:
    
-    $ docker run cfaife/countryinfo
+    $ docker container run -d --rm  --name countryinfo -p 8081:8080  cfaife/countryinfo
+
+For the first time this will pull the image from docker hub,  it might take a while.
 
 ###  Build and Deploy locally
 
