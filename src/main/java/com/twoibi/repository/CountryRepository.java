@@ -16,8 +16,6 @@ public interface CountryRepository extends JpaRepository<CountryEntity,Long> {
     String FETCH_BY_NAME = "SELECT c " +
                             "FROM CountryEntity  c " +
                             " WHERE c.name = :name";
-
-
     @Query(FETCH_ALL)
     List<CountryEntity> fetchAll();
 

@@ -1,6 +1,8 @@
 package com.twoibi.utils;
 
-import javax.swing.*;
+/**
+ * @author Clerio Alfredo Faife
+ */
 
 public enum OrderKey {
     NO_ORDER,BY_NAME, BY_CAPITAL ,BY_REGION,  BY_SUBREGION ,BY_AREA;

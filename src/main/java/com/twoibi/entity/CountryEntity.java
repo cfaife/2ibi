@@ -36,6 +36,24 @@ public class CountryEntity extends RepresentationModel<CountryEntity>  implement
     @Column(name = "area")
     private Double area;
 
+    public CountryEntity(){}
+
+    public CountryEntity(Long id,
+                         String name,
+                         String capital,
+                         String region,
+                         String subRegion,
+                         Double area){
+        this.id =id;
+        this.name = name;
+        this.capital = capital;
+        this.region = region;
+        this.subRegion =subRegion;
+        this.area =area;
+    }
+
+
+
     public Long getId() {
         return id;
     }

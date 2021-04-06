@@ -23,7 +23,13 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-    @GetMapping("/{orderKey}")
+    @GetMapping
+    public ResponseEntity<List<CountryEntity>> fetchAll(){
+
+        return ResponseEntity.of(Optional.of(this.countryService.readAll(null)));
+    }
+
+    @GetMapping("/order/{orderKey}")
     public ResponseEntity<List<CountryEntity>> fetchAll(
             @PathVariable("orderKey") String orderKey ){
 
@@ -50,7 +56,9 @@ public class CountryController {
 
         countryEntity.add(resouceLink);
 
-       return  ResponseEntity.status(HttpStatus.CREATED).build();
+       return  ResponseEntity
+               .status(HttpStatus.CREATED)
+               .body(createdCountry);
     }
 
     @PutMapping
@@ -62,11 +70,11 @@ public class CountryController {
         return  ResponseEntity.of(Optional.of(updatedCountry));
     }
 
-    @DeleteMapping("/{countryid}")
+    @DeleteMapping("/{countryId}")
     public ResponseEntity  delete(
-            @RequestParam Long countryid){
+            @RequestParam("countryId") Long countryId){
 
-        return     this.countryService.deleteCoutry(countryid);
+        return     this.countryService.deleteCoutry(countryId);
 
     }
 }
