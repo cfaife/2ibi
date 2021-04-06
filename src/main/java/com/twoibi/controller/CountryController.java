@@ -2,6 +2,7 @@ package com.twoibi.controller;
 
 import com.twoibi.entity.CountryEntity;
 import com.twoibi.service.CountryService;
+import com.twoibi.utils.OrderKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -22,10 +23,12 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-    @GetMapping
-    public ResponseEntity<List<CountryEntity>> fetchAll(){
+    @GetMapping("/{orderKey}")
+    public ResponseEntity<List<CountryEntity>> fetchAll(
+            @PathVariable("orderKey") String orderKey ){
 
-        return ResponseEntity.of(Optional.of(this.countryService.readAll()));
+        OrderKey key = OrderKey.parse(orderKey);
+        return ResponseEntity.of(Optional.of(this.countryService.readAll(key)));
     }
 
     @GetMapping("/{id}")

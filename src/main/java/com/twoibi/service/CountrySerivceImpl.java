@@ -1,7 +1,9 @@
 package com.twoibi.service;
 
 import com.twoibi.entity.CountryEntity;
+import com.twoibi.exception.DuplicatedCountryNameException;
 import com.twoibi.repository.CountryRepository;
+import com.twoibi.utils.OrderKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Clerio Alfredo Faife
@@ -45,8 +48,36 @@ public class CountrySerivceImpl  implements  CountryService{
     }
 
     @Override
-    public List<CountryEntity> readAll() {
-        return this.countryRepository.fetchAll();
+    public List<CountryEntity> readAll(OrderKey orderKey) {
+
+         if(orderKey == OrderKey.BY_NAME){
+            return this.countryRepository.fetchAll()
+                    .stream().sorted((a,b)->a.getName().compareTo(b.getName()))
+                    .collect(Collectors.toList());
+        }
+        else if(orderKey == OrderKey.BY_REGION){
+            return this.countryRepository.fetchAll()
+                    .stream().sorted((a,b)->a.getRegion().compareTo(b.getRegion()))
+                    .collect(Collectors.toList());
+        }
+        else if(orderKey == OrderKey.BY_SUBREGION){
+            return this.countryRepository.fetchAll()
+                    .stream().sorted((a,b)->a.getSubRegion().compareTo(b.getSubRegion()))
+                    .collect(Collectors.toList());
+        }
+        else if(orderKey == OrderKey.BY_AREA){
+            return this.countryRepository.fetchAll()
+                    .stream().sorted((a,b)->a.getArea().compareTo(b.getArea()))
+                    .collect(Collectors.toList());
+        }
+        else if(orderKey == OrderKey.BY_CAPITAL){
+            return this.countryRepository.fetchAll()
+                    .stream().sorted((a,b)->a.getCapital().compareTo(b.getCapital()))
+                    .collect(Collectors.toList());
+        }else {
+            return this.countryRepository.fetchAll();
+        }
+
     }
 
     @Override
@@ -78,7 +109,7 @@ public class CountrySerivceImpl  implements  CountryService{
 
        Optional<CountryEntity> retrievedEntity = this.countryRepository.fetchByName(name);
 
-       retrievedEntity.ifPresent(x -> { throw  new RuntimeException("There is a country created with this name:"+name);});
+       retrievedEntity.ifPresent(x -> { throw  new DuplicatedCountryNameException(name);});
 
        return Optional.empty();
 

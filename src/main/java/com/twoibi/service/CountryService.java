@@ -1,6 +1,7 @@
 package com.twoibi.service;
 
 import com.twoibi.entity.CountryEntity;
+import com.twoibi.utils.OrderKey;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface CountryService {
 
     Optional<CountryEntity> updateCountry(CountryEntity countryEntity);
 
-    List<CountryEntity> readAll();
+    List<CountryEntity> readAll(OrderKey orderKey);
 
     Optional<CountryEntity> readByName(String name);
 
