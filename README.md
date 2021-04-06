@@ -21,15 +21,15 @@ type:
 
 ###  Build and Deploy locally
 
-####Follow the bellow instructions
+#### Follow the bellow instructions
 
-    1. clone the  project from
-        $ git clone 
-    2. install maven and run in project directory
+    1. clone the  project from  https://github.com/cfaife/2ibi-countryinfo.git
+        $ git clone https://github.com/cfaife/2ibi-countryinfo.git
+    2. install maven and bulild project
         $ mvn clean install
     3. Create a local docker image
         $  docker  image build -t countryinfo .
-    4. Run the container
+    4. Run the container from local docker image
         $  docker container run -d --rm  --name countryinfo -p 8081:8080 countryinfo
         
 
@@ -39,6 +39,7 @@ type:
 #### 1. Creating a country information    
 
     VERB: `POST`
+    URI: `/countries`
 
 This is the example of the request:
 
@@ -58,6 +59,7 @@ The system does not allow duplicated names, otherwise 409 error is raised.
 An unsorted list of countries is returned.     
 
     VERB: `GET` 
+    URI: `/countries`
 
 e.g:
     
@@ -69,7 +71,8 @@ For this you can specify the `order key` in the request param,
 `name, capital, region, subregion` and `area`. So when the value is passed
 in the request the API will order according the given field.
 
-    VERB: `GET` 
+    VERB: `GET`
+    URI: `/countries/order/<field to sort by>`
 
 e.g.: ordering by name:
 
@@ -78,6 +81,7 @@ e.g.: ordering by name:
 #### 4. Alter an existent country
 
     VERB: `PUT`
+    URI: `/countries`
 
 An example of the `put` request:
 
@@ -97,6 +101,7 @@ Assuming that the data-raw exists in the database.
 #### 5. Delete an existent country
 
     VERB: `DELETE`
+    URI: `/countries/<country object identifier>`
 
 Request param is the numeric `id` of the country 
 
