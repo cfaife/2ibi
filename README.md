@@ -3,7 +3,7 @@
 ## Context
  This is a Java based REST API that holds information of countries.
  
-## Technologies used
+## Technologies used:
     JDK 8
     Springboot 2.4.2 -> as java framework
     H2 Database -> used in memory
@@ -17,20 +17,27 @@
 There is a docker image available in the docker registry, in  the command line
 type:
    
-    $docker run cfaife/countryinfo
+    $ docker run cfaife/countryinfo
 
 ###  Build and Deploy locally
 
-#### Follow the bellow instructions
+#### Follow the bellow instructions:
 
-    1. clone the  project from  https://github.com/cfaife/2ibi-countryinfo.git
-        $ git clone https://github.com/cfaife/2ibi-countryinfo.git
-    2. install maven and bulild project
-        $ mvn clean install
-    3. Create a local docker image
-        $  docker  image build -t countryinfo .
-    4. Run the container from local docker image
-        $  docker container run -d --rm  --name countryinfo -p 8081:8080 countryinfo
+1. Clone the  project from https://github.com/cfaife/2ibi-countryinfo.git.
+   
+   `$ git clone https://github.com/cfaife/2ibi-countryinfo.git`
+   
+2. install maven and bulild project
+   
+   `$ mvn clean install`
+
+3. Create a local docker image
+   
+   `$ docker  image build -t countryinfo .`
+   
+4. Run the container from local docker image
+        
+   `$ docker container run -d --rm  --name countryinfo -p 8081:8080 countryinfo`
         
 
 ##  Resource usage instructions
@@ -43,7 +50,7 @@ type:
 
 This is the example of the request:
 
-    $curl --location --request POST 'http://localhost:8081/countries' \
+    $ curl --location --request POST 'http://localhost:8081/countries' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "name":"Mozambique",
@@ -76,7 +83,7 @@ in the request the API will order according the given field.
 
 e.g.: ordering by name:
 
-    curl --location --request GET 'http://localhost:8081/countries/order/name'
+    $ curl --location --request GET 'http://localhost:8081/countries/order/name'
 
 #### 4. Alter an existent country
 
@@ -85,7 +92,7 @@ e.g.: ordering by name:
 
 An example of the `put` request:
 
-    curl --location --request PUT 'http://localhost:8081/countries' \
+    $ curl --location --request PUT 'http://localhost:8081/countries' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "id":"1",
@@ -107,4 +114,4 @@ Request param is the numeric `id` of the country
 
 e.g.: 
 
-    curl --location --request DELETE 'http://localhost:8081/countries/1
+    $ curl --location --request DELETE 'http://localhost:8081/countries/1

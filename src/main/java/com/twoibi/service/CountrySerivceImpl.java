@@ -93,15 +93,15 @@ public class CountrySerivceImpl  implements  CountryService{
     @Override
     public ResponseEntity deleteCoutry(Long id) {
         if(id == 0 || id ==null){
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("the values cant be 0 nor NULL");
         }
-        Optional<CountryEntity> retreivedCountry = this.countryRepository.findById(id);
+        Optional<CountryEntity> retrievedCountry = this.countryRepository.findById(id);
 
-        if(retreivedCountry.isPresent()){
+        if(retrievedCountry.isPresent()){
             this.countryRepository.delete(this.countryRepository.findById(id).get());
-            return  ResponseEntity.status(HttpStatus.OK).build();
+            return  ResponseEntity.status(HttpStatus.OK).body("Country: "+retrievedCountry.get().getName()+" removed from the system");
         }else {
-            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("No country found with this id:"+id);
         }
     }
 
